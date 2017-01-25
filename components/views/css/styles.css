@@ -1,0 +1,375 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+body
+{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.Header
+{
+    background: black;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+.Wraper
+{
+    display: table;
+    height: 50px;
+    margin: 0px auto;
+}
+.Header > .Wraper >  a
+{
+    color: rgb(232, 232, 232);
+    text-decoration: inherit;
+    font-family: sans-serif;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.Header > .Wraper > a:hover
+{
+    color: lightblue;
+}
+.Content
+{
+    text-align: center;
+}
+.mid
+{
+    display: table;
+    height: 600px;
+    margin: 0px auto;
+}
+a.userinf
+{
+    border: 1px solid rgb(146, 146, 146);
+    background: rgb(225, 225, 225);
+    color: black;
+    font-weight: bold;
+    text-decoration: inherit;
+    padding: 3px 8px;
+    border-radius: 2px;
+    font-size: 13px;
+}
+.MainCentr
+{  
+    display: table-cell;
+    vertical-align: middle;
+}
+.MainCentr > form > input
+{
+    padding: 5px;
+    margin: 5px;
+    font-family: cursive;
+}
+.OperatorDrops
+{
+    text-align: left;
+    width: 50.12345%;
+    background: lightgreen;
+    padding: 15px;
+    margin: 5px;
+    display: inline-block;
+}
+.centr
+{
+    text-align: left;
+    display: inline-block;
+}
+.centr form input[type="text"]
+{
+    padding: 2px 10px;
+}
+.OK
+{
+    color: black;
+    font-weight: bold;
+}
+.Cancel
+{
+    color: red;
+}
+.drops
+{
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: inline-block;
+}
+.Luxury
+{
+    background-color: lightgreen;
+}
+.Dating
+{
+    background-color: lightpink;
+}
+.Personal
+{
+    background-color: lightskyblue;
+}
+.tabletr td
+{
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+}
+.Order
+{
+    color: #ffffff;
+    background-color: #49afcd;
+    border-color: #49afcd;
+    padding: 4px 12px;
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.Orderdel
+{
+    color: #ffffff;
+    background-color: #CD4958;
+    border-color: #CD4962;
+    padding: 4px 12px;
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.tabletr:hover
+{
+    background-color: rgb(240, 240, 240);
+}
+.do
+{
+    background: lemonchiffon;
+    padding: 15px;
+    margin: 30px;
+    display: inline-block;
+    width: 100%;
+}
+div#butoonsoncns
+{
+    margin: 5px;
+    text-align: center;
+}
+div#butoonsoncns input[type="button"]
+{
+    margin: 5px 20px;
+    padding: 2px 15px;
+    font-weight: bold;
+}
+.fieldsorder
+{
+    width: 200px;
+    padding: 2px;
+    text-align: center;
+    margin: 2px;
+    font-weight: bold;
+}
+.selectfield
+{
+    width: 208px;
+    text-align: center;
+}
+#orderform{
+    display: none;
+}
+#Hidenn
+{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    position: fixed;
+    top: 0px;
+    text-align: center;
+    display: none;
+    background-color: rgba(0,0,0,0.5);
+    font-weight: bold;
+}
+#hcon
+{
+    display: table-cell;
+    vertical-align: middle;
+}
+#Book
+{
+    width: 700px;
+    background-color: lemonchiffon;
+    display: inline-block;
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+}
+.canse
+{
+    color: red;
+}
+.obrab
+{
+   background: lightgreen;
+   color: black; 
+}
+.otkaz
+{
+    background: lightgray;
+    color: gray;
+}
+.odobr
+{
+    background: lightblue;
+    color: gray;
+}
+.orderdropempty
+{
+    background: lightcoral;
+    color: black;
+}
+.orderclientmyacc
+{
+    width: 30.0000%;
+    padding: 10px 40px;
+    margin: 5px;
+    font-weight: bold;
+    text-align: left;
+    display: inline-block;
+}
+.usereditwraper
+{
+    padding: 10px;
+}
+.usereditwraper > input
+{
+    padding: 2px;
+    font-weight: bold;
+}
+.btncliented
+{
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background-color: lightblue;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid lightskyblue;
+}
+.btnclientcans
+{   
+    font-weight: bold;
+    color: rgb(202, 46, 46);
+    background-color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(187, 181, 182);
+}
+.dropcategory
+{
+    margin: 10px;
+    margin-top: 20px;
+}
+span.catelm
+{
+    margin: 2px;
+}
+#messages
+{
+    background: rgb(230, 230, 230);
+    border: 1px solid black;
+    width: 40%;
+    display: inline-block;
+    margin: 10px;
+    text-align: left;
+}
+.clienmes
+{
+    background: rgb(211, 211, 211);
+    margin: 5px;
+    padding: 5px;
+}
+.adminmes
+{
+    background: rgb(178, 178, 160);
+    margin: 5px;
+    padding: 5px;
+}
+.time
+{
+    font-size: 10px;
+    color: lightslategrey;
+}
+.textm
+{
+    font-size: 15px;
+}
+.newticikforadmin
+{
+    display: inline-block;
+}
+.adminticketwraper
+{
+    background-color: lightgray;
+    font-size: 15px;
+    width: 400px;
+    text-align: left;
+    padding: 10px;
+    margin: 8px;
+}
+span.closetickadmin
+{
+    font-weight: bold;
+    font-family: cursive;
+    float: right;
+    margin-top: -14px;
+    margin-right: -5px;
+    color: blue;
+    cursor: default;
+    border-radius: 2px;
+}
+span.closetickadmin:hover
+{
+    color: rgb(184, 33, 33);
+}
+a.adminticketuri {
+    text-decoration: inherit;
+    color: black;
+    font-family: cursive;
+}
+.cdate
+{
+    font-size: 10px;
+    color: lightslategrey;
+}
+.nickname
+{
+    color: dodgerblue;
+    font-weight: bold;
+    top: -25px;
+    left: -30px;
+    position: relative;
+    float: right;
+}
+.newstextmain
+{
+    color: dodgerblue;
+    font-weight: bold;
+}
+.text
+{
+    font-size: 14px;
+}
+.clientnews
+{
+    background-color: rgba(211, 211, 211, 0.67);
+    font-size: 15px;
+    width: 400px;
+    text-align: center;
+    padding: 10px;
+    margin: 8px;
+}
