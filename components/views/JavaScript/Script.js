@@ -62,7 +62,9 @@ function  ClientSendTickets(id)
 }
 function  AdminSendTickets(id)
 {
-    GlobalAction = 'AdminSendTickets';
+    //GlobalAction = 'AdminSendTickets';
+    id = GlobalID;
+    GlobalAction = 'GetNewMessages';
     data = document.forms['SendTicketForm'];
     str = 'action=AdminAction'
     + '&id=' + id
@@ -148,7 +150,7 @@ function DroprEdit(id)
     tdname = document.getElementById("tdname" + id)
     tdcountry = document.getElementById("tdcountry" + id)
     tdcity = document.getElementById("tdcity" + id)
-    tdcat = document.getElementById("cat" + id)
+    tdcat = document.getElementById("category" + id)
     data['name'].value = tdname.innerHTML;
     data['country'].value = tdcountry.innerHTML;
     data['city'].value = tdcity.innerHTML;
@@ -210,12 +212,14 @@ function OKclick(action)
 }
 function OpOk(id)
 {
+    GlobalAction = 'OpActionclickOk';
     itemid = id;
     str = 'action=OperatorAction' + '&id=' + id + '&OpAction=clickOk';
     SendData(str);
 }
 function OpCans(id)
 {
+    GlobalAction = 'OpActionclickCans';
     itemid = id;
     str = 'action=OperatorAction' + '&id=' + id + '&OpAction=clickCans';
     SendData(str);
@@ -240,7 +244,8 @@ function GetRequest()
                 if(GlobalAction == 'ClientEdit' || GlobalAction == 'DropEdit' ||
                     GlobalAction == 'DroprDelete' || GlobalAction == 'AdminEditUser' ||
                     GlobalAction == 'ClientChangeCategory' || GlobalAction == 'AdminLookTicket' || 
-                    GlobalAction == 'ClientCloseNews')
+                    GlobalAction == 'ClientCloseNews' || GlobalAction == 'OpActionclickOk' ||
+                    GlobalAction == 'OpActionclickOk' || GlobalAction == 'OpActionclickCans')
                 {
                     if(str.length > 0)
                     {
@@ -255,11 +260,6 @@ function GetRequest()
                         obj = document.getElementById('messages');
                         obj.innerHTML = str;
                     }
-                }
-                else
-                {
-                    obj = document.getElementById('status' + itemid);
-                    obj.innerHTML = str;
                 }
             }
         }

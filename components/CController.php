@@ -210,19 +210,20 @@ class CController
     {
         if(self::UserCheck() == 3 || self::UserCheck() == 1)
         {
+            
             $messages = CDataBase::ClientTickets($id);
             $messages = array_reverse($messages);
             $str = '';
             foreach($messages as $key=>$val)
             {
-                $class = 'adminmes';
-                if($val['fromid'] != 0)
-                    $class = 'clienmes';
-                $str .= "
-                <div class='$class'>
-                    <div class='time'>{$val['cdate']}</div>
-                    <div class='textm'>{$val['text']}</div>
-                </div>";
+                $class = 'alert alert-dismissable alert-success';
+                    if($val['fromid'] != 0)
+                        $class = 'alert alert-dismissable alert-info';
+                    $str .= "
+                    <div class='messages $class'>
+                        <div class='time'>{$val['cdate']}</div>
+                        <div class='textm'>{$val['text']}</div>
+                    </div>";
             }
             print $str;
         }
@@ -274,7 +275,7 @@ class CController
                     $rows[':iduser'] = $params['id'];
                     $rows[':text'] = $params['message'];
                     CDataBase::AdminSendTickets($rows);
-                    self::GetNewMessages();
+                    self::GetNewMessages($params['id']);
                 break;
                 case 'AdminLookTicket':
                     $id = $params['id'];
@@ -379,11 +380,13 @@ class CController
             {
                 case 'clickOk':
                     CDataBase::DropOrdersStatus($params['id'], 1);
-                    print 'Обработан';
+                    self::Main();
+                    
                 break;
                 case 'clickCans':
                     CDataBase::DropOrdersStatus($params['id'], 2);
-                    print 'Отказано';
+                    self::Main();
+                    
                 break;
             }
         }
@@ -476,10 +479,16 @@ class CController
         {
             case 1:
                 self::$header[] = "<a href='/'>Операции</a>";
-                self::$header[] = "<a href='/?action=AdminPanel'>Панель админа</a>";
-                self::$header[] = "<a href='/?action=DropManager'>Редактор Дропов</a>";
-                self::$header[] = "<a href='/?action=UserManager'>Редактор Пользователей</a>";
-                self::$header[] = "<a href='?action=AdminTickets'>Тикеты</a>";
+                self::$header[] = "<a href='/?action=AdminPanel'>Настройки</a>";
+                self::$header[] = "<a href='/?action=DropManager'>Дропы</a>";
+                self::$header[] = "<a href='/?action=UserManager'>Пользователи</a>";
+                self::$header[] = "<a href='/?action=AdminTickets'>Тикеты</a>";
+                self::$header[] = '
+                <form class="navbar-form navbar-left" name="Search" action="" method="post">
+                    <input type="hidden" name="action" value="AdminSearch"/>
+                    <input type="text" name="Search" class="form-control col-lg-8" placeholder="Поиск...">
+                </form>
+                ';
                 self::$header[] = "<a href='?action=Logout'>Выход</a>";
             break;
             case 2:
@@ -487,9 +496,9 @@ class CController
             break;
             case 3:
                 self::$header[] = "<a href='/'>Дропы</a>";
-    			self::$header[] = "<a href='?action=MyAccount'>Мой кабинет</a>";
-    			self::$header[] = "<a href='?action=ClientTickets'>Тикеты</a>";
-                self::$header[] = "<a href='?action=Logout'>Выход</a>";
+    			self::$header[] = "<a href='/?action=MyAccount'>Мой кабинет</a>";
+    			self::$header[] = "<a href='/?action=ClientTickets'>Тикеты</a>";
+                self::$header[] = "<a href='/?action=Logout'>Выход</a>";
             break;
         }
     }
@@ -547,7 +556,6 @@ class CController
     static function SendSMS($str)
     {
         $result = CDataBase::GetSMSNumber();
-        
         if(isset($str) && isset($result))
         {
             if(!empty($str) && !empty($result))
@@ -555,12 +563,15 @@ class CController
                 if(strlen($str) > 0 && count($result) > 0)
                 {
                     $phones = $result['PhoneNumber'];
-                    $login = 'Bonik';
-                    $psw = '3536265asd';
-                    $mes = "У вас новая заявка от: $str";
-                    $sendstr = "http://smsc.ru/sys/send.php?login=$login&psw=$psw&phones=$phones&mes=$mes";
-                    $sendstr = iconv('UTF-8', 'windows-1251', $sendstr);
-                    file_get_contents($sendstr);
+                    if(strlen($phones) > 0)
+                    {
+                        $login = 'Bonik';
+                        $psw = '3536265asd';
+                        $mes = "У вас новая заявка от: $str";
+                        $sendstr = "http://smsc.ru/sys/send.php?login=$login&psw=$psw&phones=$phones&mes=$mes";
+                        $sendstr = iconv('UTF-8', 'windows-1251', $sendstr);
+                        file_get_contents($sendstr);
+                    }
                 }
             }
         }
@@ -604,8 +615,27 @@ class CController
     static function Render($page='', $model=null)
     {
         $header = '';
-        foreach(self::$header as $val)
-            $header .= "$val ";
+        $cur = -1;
+        $uri = explode('&', $_SERVER['REQUEST_URI']);
+        $uri = $uri[0];
+        foreach(self::$header as $key=>$val)
+        {
+            $pos = strpos($val, $uri);
+            if (!$pos === false)
+            {
+               $cur = $key;
+               break;
+            }
+        }
+        foreach(self::$header as $key=>$val)
+        {
+            $class = '';
+            if($cur == $key)
+                $class .= 'active ';
+            if($key == count(self::$header)-1)
+                $class .= 'exit ';
+            $header .= "<li class='$class'>$val</li> ";    
+        }
         if(isset($model))
         {
             extract($model, EXTR_PREFIX_SAME, '');
@@ -614,4 +644,4 @@ class CController
         require_once($page);
         require_once('footer.php');
     }
-}
+}                       

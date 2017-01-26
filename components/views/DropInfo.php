@@ -27,18 +27,18 @@
                     }
                     $str .=
                     "<div><div class='orderclientmyacc $clordstat'>
-                        <samp>$stat</samp>
+                        <span>$stat</span>
                         <div>
-                            <samp>{$val['mtcn']}</samp>
-                            <samp>{$val['country']}</samp>
-                            <samp>{$val['name']}</samp>
+                            <span>{$val['mtcn']}</span>
+                            <span>{$val['country']}</span>
+                            <span>{$val['name']}</span>
                             <br/>
-                            <samp>{$val['amount']}</samp>
-                            <samp>{$val['currency']}</samp>
+                            <span>{$val['amount']}</span>
+                            <span>{$val['currency']}</span>
                             <br/>
-                            <samp>{$val['comment']}</samp>
+                            <span>{$val['comment']}</span>
                             <br/>
-                            <samp>{$val['order_creation']}</samp>
+                            <span>{$val['order_creation']}</span>
                             <div>
                                 <a href='/?action=UserInfo&id={$val['ordered_by']}'>
                                     {$val['nickname']}

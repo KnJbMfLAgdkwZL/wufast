@@ -4,11 +4,11 @@
                 $str = '';
                 foreach($messages as $key=>$val)
                 {
-                    $class = 'adminmes';
+                    $class = 'alert alert-dismissable alert-success';
                     if($val['fromid'] != 0)
-                        $class = 'clienmes';
+                        $class = 'alert alert-dismissable alert-info';
                     $str .= "
-                    <div class='$class'>
+                    <div class='messages $class'>
                         <div class='time'>{$val['cdate']}</div>
                         <div class='textm'>{$val['text']}</div>
                     </div>";
@@ -16,15 +16,15 @@
                 print $str;
                 ?>
             </div>
-            <form name="SendTicketForm" action="javascript:void(null)" method="post">
-                <div>
-                    <textarea rows='10' cols='92' name="message" id="message" maxlength="2990"></textarea>
+            <br />
+            <form name="SendTicketForm" action="javascript:void(null)" method="post" class="formmess">
+                <div class="col-lg-10 textchatwraper">
+                    <textarea maxlength="2000" name="message" id="message" rows='5' cols='40' class="form-control" rows="3" id="textArea"></textarea>
                 </div>
-                <div>                
-                    <input onclick="<?= $action ?>" type="submit" value="Отправить" />
-                </div>
+                <br />
+                <input class="btn btn-primary btnsendmess" onclick="<?= $action ?>" type="submit" value="Отправить" />
             </form>
-        <script>
-            ClientTimerChatStart(<?= $id ?>);
-        </script>
+            <script>
+                ClientTimerChatStart(<?= $id ?>);
+            </script>
         </div>

@@ -1,5 +1,4 @@
         <div class="Content">
-            <br />
             <div class="newticikforadmin">
                 <?php
                 $str = "";
@@ -11,12 +10,13 @@
                         $text = $val['text'];
                         if(strlen($text) > 50)
                             $text = substr($text, 0, 50)."...";
-                        $str .= "<div class='adminticketwraper'>
-                            <span onclick='AdminLookTicket({$val['id']})' class='closetickadmin'>x</span>
+                        $str .=
+                        "<div class='alert alert-dismissable alert-info ticket'>
+                            <button onclick='AdminLookTicket({$val['id']})' type='button' class='close' data-dismiss='alert'>×</button>
                             <a class='adminticketuri' href='/?action=AdminLookTicket&id={$val['id']}'>
-                                <div class='cdate'>{$val['cdate']}</div>
-                                <div class='nickname'>{$val['nickname']}</div>
-                                <div class='text'>$text</div>
+                                    <div class='cdate'>{$val['cdate']}</div>
+                                    <div class='nickname'>{$val['nickname']}</div>
+                                    $text
                             </a>
                         </div>";
                     }

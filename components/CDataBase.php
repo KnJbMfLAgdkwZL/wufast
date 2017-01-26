@@ -227,6 +227,8 @@ class CDataBase
         WHERE drop_orders.mtcn LIKE :text
         OR drop_orders.country LIKE :text
         OR drop_orders.`name` LIKE :text
+        OR drop_orders.amount LIKE :text
+        OR drop_orders.currency LIKE :text
         OR drop_orders.comment LIKE :text
         
         ORDER BY drop_orders.order_creation DESC';
@@ -235,7 +237,7 @@ class CDataBase
     }
     static function ClientTickets($id)
     {
-        $sql = 'SELECT * FROM tickets WHERE fromid = :id OR toid = :id ORDER BY cdate DESC LIMIT 10';
+        $sql = 'SELECT * FROM tickets WHERE fromid = :id OR toid = :id ORDER BY cdate DESC LIMIT 8';
         $params = array(':id'=>$id);
         return self::Execute($sql, $params);
     }
@@ -304,6 +306,7 @@ class CDataBase
         $sql = 'UPDATE `drops`
         SET name = :name, country = :country, city = :city, cat = :cat, count = :count
         WHERE id = :id';
+        //var_dump($params);exit;
         $result = self::Execute($sql, $params);
     }
     static function AdminEditUser($params)
@@ -462,3 +465,5 @@ class CDataBase
         return self::Execute($sql, $params);
     }
 }
+                            
+                            

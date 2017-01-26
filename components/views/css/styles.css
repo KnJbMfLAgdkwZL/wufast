@@ -60,20 +60,18 @@ a.userinf
     display: table-cell;
     vertical-align: middle;
 }
-.MainCentr > form > input
-{
-    padding: 5px;
-    margin: 5px;
-    font-family: cursive;
-}
 .OperatorDrops
 {
     text-align: left;
-    width: 50.12345%;
     background: lightgreen;
     padding: 15px;
     margin: 5px;
+    border-radius: 5px;
+}
+.droporderoeration
+{
     display: inline-block;
+    width: 666px;
 }
 .centr
 {
@@ -98,26 +96,7 @@ a.userinf
     border-collapse: collapse;
     border-spacing: 0;
     display: inline-block;
-}
-.Luxury
-{
-    background-color: lightgreen;
-}
-.Dating
-{
-    background-color: lightpink;
-}
-.Personal
-{
-    background-color: lightskyblue;
-}
-.tabletr td
-{
-    padding: 8px;
-    line-height: 20px;
-    text-align: left;
-    vertical-align: top;
-    border-top: 1px solid #dddddd;
+    width: 626px;
 }
 .Order
 {
@@ -236,7 +215,6 @@ div#butoonsoncns input[type="button"]
     width: 30.0000%;
     padding: 10px 40px;
     margin: 5px;
-    font-weight: bold;
     text-align: left;
     display: inline-block;
 }
@@ -268,11 +246,6 @@ div#butoonsoncns input[type="button"]
     margin: 5px;
     border-radius: 5px;
     border: 1px solid rgb(187, 181, 182);
-}
-.dropcategory
-{
-    margin: 10px;
-    margin-top: 20px;
 }
 span.catelm
 {
@@ -372,4 +345,22 @@ a.adminticketuri {
     text-align: center;
     padding: 10px;
     margin: 8px;
+}
+span.dropname
+{
+    font-size: 15px;
+    font-weight: bold;
+}
+span.countrycity
+{
+    font-size: 14px;
+}
+span.amount
+{
+    font-weight: bold;
+    margin-left: 10px;
+}
+span.mtcn
+{
+    font-weight: bold;
 }

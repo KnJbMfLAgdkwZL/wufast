@@ -1,0 +1,166 @@
+li.exit
+{
+    right: 0px;
+    position: fixed;
+}
+.btnclientorder
+{
+    float: right;
+    margin-right: 10px;
+}
+.tabletr
+{
+    text-align: left;
+    padding: 5px;
+    margin: 1px;
+    height: 50px;
+    padding: 5px;
+}
+.rightitems
+{
+    float: left;
+}
+.tabletr:nth-child(odd)
+{
+    background: #ededed;
+}
+.tabletr
+{
+    border: 1px solid #cfcfcf;
+}
+.tabletr:hover
+{
+    background: #c6e6f8;
+}
+.catelm
+{
+}
+.dropcategory
+{
+    margin-bottom: 25px;
+}
+.mynews
+{
+    width: 626px;
+}
+.catget
+{
+    margin: 20px;
+    margin-top: -10px;
+}
+.botnclientorder
+{
+    text-align: right;
+}
+.midl
+{
+}
+.tabletr
+{
+    width: 626px;
+    display: table;
+}
+.midtext
+{
+    display: table-cell;
+    vertical-align: middle;
+}
+.clientdname
+{
+    padding-left: 20px;
+}
+.botnclientorder
+{
+    padding-right: 10px;
+}
+.clientdcat
+{
+    text-align: right;
+    font-weight: bold;
+    width: 150px;
+}
+.botnclientorder
+{
+    width: 115px;
+}
+
+.Luxury
+{
+    color: #54b4eb;
+}
+.Dating
+{
+    color: #88c149;
+}
+.Personal
+{
+    color: #ff6707;
+}
+.clientdname
+{
+    width: 55px;
+}
+.clientdname
+{
+    width: 270px;
+}
+.clientdcity
+{
+    margin-right: 10px;
+}
+.btnlogin
+{
+    margin: 10px;
+}
+.dropmanager
+{
+    width: inherit;
+}
+.ticket
+{
+    width: 400px;
+    text-align: left;
+}
+.nickname
+{
+    color: dodgerblue;
+    font-weight: bold;
+    top: 14px;
+    position: inherit;
+    float: right;
+}
+.adminticketuri
+{
+    text-decoration: none;
+}
+.adminticketuri:hover
+{
+   text-decoration: none; 
+}
+.formmess
+{
+    text-align: center;
+    display: inline-block;
+}
+.textchatwraper
+{
+    width: 500px;
+    display: inline-block;
+}
+.btnsendmess
+{
+    margin-top: 10px;
+}
+#message
+{
+    resize: none;
+}
+#messages
+{
+    margin: 0px;
+    margin-bottom: 10px;
+}
+.messages
+{
+    margin: 0px;
+}

@@ -1,5 +1,5 @@
         <div class="Content">
-            <form name="oper" action="javascript:void(null)" method="post">
+            <form name="oper" action="javascript:void(null)" method="post" class="droporderoeration">
                 <input type="hidden" name="action" value="Operator"/>
             <?php
                 $drops = "";
@@ -18,16 +18,21 @@
                         }
                         $drops .= "
                         <div id='do{$val['id']}' class='OperatorDrops'>
-                            <div id='status{$val['id']}'>$status</div>
-                            {$di['name']}, {$di['country']}, {$di['city']}
+                            <h4><div id='status{$val['id']}'>$status</div></h4>
+                            <span class='dropname'>{$di['name']}</span> 
+                            <span class='countrycity'>{$di['country']} {$di['city']}</span>
                             <br/>
-                            {$val['mtcn']} {$val['country']} {$val['name']} {$val['amount']}
-                            {$val['currency']}
+                            <span class='mtcn'>{$val['mtcn']}</span>
+                            <span class='country'>{$val['country']}</span>
+                            <span class='name'>{$val['name']}</span>
+                            <span class='amount'>{$val['amount']}</span>
+                            <span class='currency'>{$val['currency']}</span>
                             <br/>
-                            {$val['comment']}
+                            <span class='comment'>{$val['comment']}</span>
                             <br/>
-                            <input class='OK' type='submit' value='OK' onClick='OpOk({$val['id']})' />
-                            <input class='Cancel' type='submit' value='Cancel' onClick='OpCans({$val['id']})' /> 
+                            <br/>
+                            <input class='btn btn-primary' type='submit' value='OK' onClick='OpOk({$val['id']})' />
+                            <input class='btn btn-danger' type='submit' value='Cancel' onClick='OpCans({$val['id']})' /> 
                         </div>";   
                     }
                 }

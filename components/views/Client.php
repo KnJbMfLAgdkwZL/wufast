@@ -7,9 +7,10 @@
                         $str = "";
                         foreach($news as $key=>$val)
                         {
-                            $str .= "<div class='clientnews'>
-                            <span onclick='ClientCloseNews({$val['id']})' class='closetickadmin'>x</span>
-                            <div class='newstextmain'>{$val['newstext']}</div>
+                            $str .= "
+                            <div class='alert alert-dismissable alert-info mynews'>
+                            <button onclick='ClientCloseNews({$val['id']})' type='button' class='close' data-dismiss='alert'>×</button>
+                            {$val['newstext']}
                             </div>";
                         }
                         print $str;
@@ -18,50 +19,57 @@
                 </div>
             </div>
             <div class="dropcategory">
-                <?php
-                    $check = -1;
-                    if(isset($checed))
-                        $check = $checed;
-                ?>
-                <span class='catelm'><input <?= ($check==0)?'checked':'' ?> type="radio" onclick='ClientChangeCategory(0)' name="cat" value="0"/> Luxury Drop</span>
-                <span class='catelm'><input <?= ($check==1)?'checked':'' ?> type="radio" onclick='ClientChangeCategory(1)' name="cat" value="1"/> Dating Scam Drop</span>
-                <span class='catelm'><input <?= ($check==2)?'checked':'' ?> type="radio" onclick='ClientChangeCategory(2)' name="cat" value="2"/> Personal Drop</span>
+                <h2 class="catget">Выберите дропа</h2>
+                <span class='catelm centrdropclient'>
+                    <button class="btn btn-primary btn-sm" onclick='ClientChangeCategory(0)' >Luxury Drop</button>
+                </span>
+                <span class='catelm'>
+                    <button class="btn btn-success btn-sm" onclick='ClientChangeCategory(1)' >Dating Scam Drop</button>
+                </span>
+                <span class='catelm'>
+                    <button class="btn btn-warning btn-sm" onclick='ClientChangeCategory(2)' >Personal Drop</button>
+                </span>
             </div>
         <?php
             $str = '';
             if(isset($drops) && !empty($drops) && count($drops)>0)
             {
-                $str = "<table class='drops'>";
+                $str = "<div class='drops'>";
                 foreach($drops as $key=>$val)
                 {
                     $cat = '';
-                    $catclas ='';
+                    $castc = '';
                     switch($val['cat'])
                     {
                         case 0:
+                            $castc = 'Luxury';
                             $cat = 'Luxury Drop';
-                            $catclas = 'Luxury';
                         break;
                         case 1:
+                            $castc = 'Dating';
                             $cat = 'Dating Scam Drop';
-                            $catclas = 'Dating';
                         break;
                         case 2:
+                            $castc = 'Personal';
                             $cat = 'Personal Drop';
-                            $catclas = 'Personal';
                         break;
                     }
-                    $str .="<tr id='drop{$val['id']}' class='$catclas tabletr'>
-                        <td id='tdname{$val['id']}'>{$val['name']}</td>
-                        <td id='tdcountry{$val['id']}'>{$val['country']}</td>
-                        <td id='tdcity{$val['id']}'>{$val['city']}</td>
-                        <td id='tdcat{$val['id']}'>$cat</td>
-                        <td>
-                            <input id='ordbtnid{$val['id']}' class='Order' type='submit' value='Заказать' onClick='Order({$val['id']})' />
-                        </td>
-                    </tr>";
+                    $str .=
+                    
+                    "
+                    <div id='{$val['id']}' class='tabletr'>
+                        <span class='midtext clientdname' id='tdname{$val['id']}'>{$val['name']}</span>
+                        <span class='midtext clientdcountry' id='tdcountry{$val['id']}'>{$val['country']}&nbsp;&nbsp;</span>
+                        <span class='midtext clientdcity' id='tdcity{$val['id']}'>{$val['city']}</span>
+                        <span class='midtext clientdcat $castc' id='tdcat{$val['id']}'>$cat</span>
+                        <span class='midtext botnclientorder'>
+                            <input id='ordbtnid{$val['id']}' class='btn btn-primary' type='submit' value='Заказать' onClick='Order({$val['id']})' />
+                        </span>
+                    </div>
+                    ";
+                    
                 }
-                $str .= "</table>";
+                $str .= "</div>";
             }
             else
             {

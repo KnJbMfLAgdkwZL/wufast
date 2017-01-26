@@ -52,16 +52,4 @@
             </div>
             <hr/>
             
-            <br />
-            <div class="centr">
-                <form name="Search" action="" method="post">
-                    <input type="hidden" name="action" value="AdminSearch"/>
-                    Поиск: 
-                    <input type="Search" name="Search" placeholder="Search" />
-                    <input type="submit" value=">" />
-                </form>
-                <br />
-            </div>
-            <hr/>
-            
         </div>
