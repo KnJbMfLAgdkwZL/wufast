@@ -137,9 +137,19 @@ class CController
                 $drops = CDataBase::GetAllDrops();
                 $news = CDataBase::GetAllNews();
                 $id = $_COOKIE['uid'];
+                
+                $countnew = 0;
                 foreach($news as $key=>$val)
                 {
                     if(CDataBase::UserSeeNews($id, $val['id']) === true)
+                    {
+                        unset($news[$key]);
+                    }
+                    else
+                    {
+                       $countnew++;
+                    }
+                    if($countnew>5)
                     {
                         unset($news[$key]);
                     }
@@ -228,6 +238,17 @@ class CController
             print $str;
         }
     }
+    static function AdminCreateUser($params)
+    {
+        if(self::UserCheck() == 1)
+        {
+            $salt = 'lasASKFJASKFJ12ASFj';
+            $params['password'] = md5(md5($params['password']).$salt);
+            CDataBase::AdminCreateUser($params);
+            $model = array('alert'=>'Пользователь создан');
+            self::UserManager();
+        }
+    }
     static function AdminAction($params)
     {
         if(self::UserCheck() == 1) 
@@ -240,7 +261,7 @@ class CController
                     $rows[':name'] = $params['name'];
                     $rows[':country'] = $params['country'];
                     $rows[':city'] = $params['city'];
-                    $rows[':cat'] = $params['category'];
+                    $rows[':cat'] = $params['cat'];
                     CDataBase::AdminDropEdit($rows);
                     self::DropManager();
                 break;
@@ -253,21 +274,23 @@ class CController
                 case 'AdminEditUser':
                     $rows = array();
                     $user = CDataBase::GetUserById($params['id']);
-                    if(strlen($params['password']) > 0)
-                    {
-                        $salt = 'lasASKFJASKFJ12ASFj';
-                        $password = md5(md5($params['password']).$salt);
-                        $rows[':password'] = $password;
-                    }
-                    else
-                        $rows[':password'] = $user['password'];
-                    $rows[':id'] = $params['id'];
-                    $rows[':nickname'] = $params['nickname'];
-                    $rows[':group'] = $params['group'];
                     if($params['delete'] == 'true')
                         CDataBase::AdminDeleteUserById($params['id']);
                     else
+                    {
+                        if(strlen($params['password']) > 0)
+                        {
+                            $salt = 'lasASKFJASKFJ12ASFj';
+                            $password = md5(md5($params['password']).$salt);
+                            $rows[':password'] = $password;
+                        }
+                        else
+                            $rows[':password'] = $user['password'];
+                        $rows[':id'] = $params['id'];
+                        $rows[':nickname'] = $params['nickname'];
+                        $rows[':group'] = $params['group'];
                         CDataBase::AdminEditUser($rows);
+                    }
                     self::UserManager();
                 break;
                 case 'AdminSendTickets':
@@ -447,21 +470,10 @@ class CController
     {
         if(self::UserCheck() == 1)
         {
-            $params['cat'] = $params['category'];
+            $params['cat'] = $params['cat'];
             CDataBase::AdminCreateDrop($params);
             $model = array('alert'=>'Дроп создан');
             self::DropManager();
-        }
-    }
-    static function AdminCreateUser($params)
-    {
-        if(self::UserCheck() == 1)
-        {
-            $salt = 'lasASKFJASKFJ12ASFj';
-            $params['password'] = md5(md5($params['password']).$salt);
-            CDataBase::AdminCreateUser($params);
-            $model = array('alert'=>'Пользователь создан');
-            self::UserManager();
         }
     }
     static function AdminCreateNews($params)

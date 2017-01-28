@@ -265,7 +265,7 @@ class CDataBase
     }
     static function GetAllNews()
     {
-        $sql = 'SELECT * FROM news ORDER BY news.newstext ASC LIMIT 5';
+        $sql = 'SELECT * FROM news ORDER BY news.datecreate ASC';
         return self::Execute($sql);
     }
     static function AdminCreateDrop($params)
@@ -325,11 +325,11 @@ class CDataBase
     static function AdminCreateUser($params)
     {
         $par = array(
-            ':nick'=>$params['login'],
-            ':pass'=>$params['password'],
-            ':gro'=>$params['groop']);
+            ':nickname'=>$params['nickname'],
+            ':password'=>$params['password'],
+            ':group'=>$params['group']);
         $sql = 'INSERT INTO users(users.nickname, users.password, users.group)
-        VALUES(:nick, :pass, :gro);';
+        VALUES(:nickname, :password, :group);';
         $result = self::Execute($sql, $par);
     }
     static function CLienOrderEdit($params)

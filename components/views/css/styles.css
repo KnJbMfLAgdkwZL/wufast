@@ -179,12 +179,11 @@ div#butoonsoncns input[type="button"]
 }
 #Book
 {
-    width: 700px;
-    background-color: lemonchiffon;
+    background-color: white;
     display: inline-block;
     text-align: left;
-    padding: 10px;
     border-radius: 5px;
+    padding: 10px;
 }
 .canse
 {
@@ -192,8 +191,7 @@ div#butoonsoncns input[type="button"]
 }
 .obrab
 {
-   background: lightgreen;
-   color: black; 
+   background: lightgreen; 
 }
 .otkaz
 {
@@ -208,15 +206,6 @@ div#butoonsoncns input[type="button"]
 .orderdropempty
 {
     background: lightcoral;
-    color: black;
-}
-.orderclientmyacc
-{
-    width: 30.0000%;
-    padding: 10px 40px;
-    margin: 5px;
-    text-align: left;
-    display: inline-block;
 }
 .usereditwraper
 {
@@ -250,15 +239,6 @@ div#butoonsoncns input[type="button"]
 span.catelm
 {
     margin: 2px;
-}
-#messages
-{
-    background: rgb(230, 230, 230);
-    border: 1px solid black;
-    width: 40%;
-    display: inline-block;
-    margin: 10px;
-    text-align: left;
 }
 .clienmes
 {
@@ -309,24 +289,10 @@ span.closetickadmin:hover
 {
     color: rgb(184, 33, 33);
 }
-a.adminticketuri {
-    text-decoration: inherit;
-    color: black;
-    font-family: cursive;
-}
 .cdate
 {
     font-size: 10px;
     color: lightslategrey;
-}
-.nickname
-{
-    color: dodgerblue;
-    font-weight: bold;
-    top: -25px;
-    left: -30px;
-    position: relative;
-    float: right;
 }
 .newstextmain
 {

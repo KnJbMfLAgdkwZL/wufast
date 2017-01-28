@@ -1,17 +1,4 @@
-GlobalAction = '';
-GlobalID = 0;
-function CreateDrop()
-{    
-    data = document.forms['order'];
-    data.style.display = "inherit";
-    Hidenn = document.getElementById("Hidenn");
-    Hidenn.style.display = "table";
-    data['action'].value = 'AdminCreateDrop';
-    data['country'].value = 'Russia';
-    data['city'].value = 'Moscow';
-    GlobalAction = 'DropEdit';
-}
-function GetRandomPassword(id)
+function RandomPassword()
 {
     var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
     var string_length = 8;
@@ -21,8 +8,203 @@ function GetRandomPassword(id)
         var rnum = Math.floor(Math.random() * chars.length);
         randomstring += chars.substring(rnum,rnum+1);
     }
-    data = document.forms['editusers'];  
-    data["password" + id].value = randomstring;
+    modalform = document.forms['modalform'];
+    modalform['password'].value = randomstring;
+}
+function ModalOpen()
+{
+    Hidenn = document.getElementsByClassName('modal');
+    Hidenn = Hidenn[0];
+    Hidenn.style.display = 'initial';
+}
+function ModalClose()
+{
+    Hidenn = document.getElementsByClassName('modal');
+    Hidenn = Hidenn[0];
+    Hidenn.style.display = "none";
+    modalform = document.forms['modalform'];
+    radio = true;
+    for(i=0; i<modalform.length; i++)
+    {
+        if(modalform[i].name != '')
+        {
+            if(modalform[i].type == 'radio')
+            {
+                if(radio)
+                {
+                    modalform[i].checked = true;
+                    radio = false;
+                }
+            }
+            else if(modalform[i].type == 'text')
+            {
+                modalform[i].value = '';
+            }
+        }
+    }
+}
+function EditUser(id)
+{
+    userdel = document.getElementById('userdel');
+    userdel.style.display = 'initial';
+    userdel.onclick = function() { AdminEditUser(id, 'del'); }
+    Head = document.getElementsByClassName('modal-title');
+    Head = Head[0];
+    Head.innerHTML = 'Редактировать Пользователя';
+    Foot = document.getElementsByClassName('SaveBtn');
+    Foot = Foot[0];
+    Foot.innerHTML = 'Сохранить';
+    Foot.onclick = function() { AdminEditUser(id, 'edit'); }
+    modalform = document.forms['modalform'];
+    modalform['login'].value = document.getElementById('nickname' + id).innerHTML;
+    modalform['group'].value = document.getElementById('group' + id).innerHTML;
+    GlobalAction = 'AdminEditUser';
+    ModalOpen();
+}
+
+function CreateUser()
+{
+    userdel = document.getElementById('userdel');
+    userdel.style.display = 'none';
+    Head = document.getElementsByClassName('modal-title');
+    Head = Head[0];
+    Head.innerHTML = 'Создать Пользователя';
+    Foot = document.getElementsByClassName('SaveBtn');
+    Foot = Foot[0];
+    Foot.innerHTML = 'Создать';
+    Foot.onclick = function() { AdminCreateUser(); }
+    GlobalAction = 'AdminCreateUser';
+    ModalOpen();
+}
+function AdminEditUser(id, type)
+{
+    modalform = document.forms['modalform'];
+    str = 'action=AdminAction&AdAction=AdminEditUser&id=' + id + 
+    '&nickname=' + modalform["login"].value + 
+    '&password=' + modalform["password"].value;
+    
+    cat = 0;
+    for(i=0; i<modalform.length; i++)
+    {
+        if(modalform[i].name == 'group' && modalform[i].checked == true)
+        {
+            cat = modalform[i].value;
+            break;
+        }
+    }
+    str += '&group=' + cat;
+    
+    if(type == 'del')
+        str += '&delete=true';
+    SendData(str);
+    ModalClose();
+}
+function AdminCreateUser()
+{
+    modalform = document.forms['modalform'];
+    str =
+    'action=AdminCreateUser' + 
+    '&nickname=' + modalform["login"].value + 
+    '&password=' + modalform["password"].value +
+    '&group=' + modalform["group"].value;
+    SendData(str);
+    ModalClose();
+}
+function DropEdit(id)
+{    
+    Head = document.getElementsByClassName('modal-title');
+    Head = Head[0];
+    Head.innerHTML = 'Редактировать Дропа';
+    Foot = document.getElementsByClassName('SaveBtn');
+    Foot = Foot[0];
+    Foot.innerHTML = 'Сохранить';
+        
+    Foot.onclick = function() { AdminEditDrop(id); }
+        
+    modalform = document.forms['modalform'];
+    tdname = document.getElementById("tdname" + id)
+    tdcountry = document.getElementById("tdcountry" + id)
+    tdcity = document.getElementById("tdcity" + id)
+    tdcat = document.getElementById("category" + id)
+    modalform['name'].value = tdname.innerHTML;
+    modalform['country'].value = tdcountry.innerHTML;
+    modalform['city'].value = tdcity.innerHTML;
+    modalform['cat'].value = tdcat.value;
+    GlobalAction = 'DropEdit';
+    ModalOpen();
+}
+function DropCreate()
+{
+    Head = document.getElementsByClassName('modal-title');
+    Head = Head[0];
+    Head.innerHTML = 'Создать Дропа';
+    Foot = document.getElementsByClassName('SaveBtn');
+    Foot = Foot[0];
+    Foot.innerHTML = 'Создать';
+    Foot.onclick = function() { AdminCreateDrop(); }
+    modalform = document.forms['modalform'];
+    modalform['country'].value = 'Russia';
+    modalform['city'].value = 'Moscow';
+    
+    GlobalAction = 'DropCreate';
+    ModalOpen();
+}
+function AdminCreateDrop()
+{
+    modalform = document.forms['modalform'];
+    str =
+    'action=AdminCreateDrop' + 
+    '&name=' + modalform["name"].value + 
+    '&country=' + modalform["country"].value +
+    '&city=' + modalform["city"].value + 
+    '&cat=' + modalform["cat"].value;
+    SendData(str);
+    GlobalAction = 'AdminCreateDrop';
+    ModalClose();
+}
+
+function AdminEditDrop(id)
+{
+    modalform = document.forms['modalform'];
+    str = 'action=AdminAction&AdAction=DropEdit&id=' + id + 
+    '&name=' + modalform["name"].value + 
+    '&country=' + modalform["country"].value +
+    '&city=' + modalform["city"].value;
+    
+    cat = 0;
+    for(i=0; i<modalform.length; i++)
+    {
+        if(modalform[i].name == 'cat' && modalform[i].checked == true)
+        {
+            cat = modalform[i].value;
+            break;
+        }
+    }
+    str += '&cat=' + cat;
+    
+    SendData(str);    
+    ModalClose();
+}
+
+
+function DroprDelete(id)
+{
+    GlobalAction = 'DroprDelete';
+    str = 'action=AdminAction' + '&id=' + id + '&AdAction=DroprDelete';
+    SendData(str);
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+GlobalAction = ''; GlobalID = 0;
+function Hide(btn)
+{    
+    ModalClose();
+    data = document.forms['order'];
+    id = data['OrderId'].value;
+    if(btn==false)
+    {
+        btn = document.getElementById('ordbtnid' + id);
+        btn.style.display = "inherit";
+    }
 }
 function ClientTimerChatStart(id)
 {
@@ -73,56 +255,17 @@ function  AdminSendTickets(id)
     data['message'].value = '';
     SendData(str);
 }
-function ClientEdit(iddrop)
-{
-    data = document.forms['order'];
-    data.style.display = "inherit";
-    Hidenn = document.getElementById("Hidenn");
-    Hidenn.style.display = "table";
-    DOmtcn = document.getElementById("DOmtcn" + iddrop);
-    DOcountry = document.getElementById("DOcountry" + iddrop);
-    DOname = document.getElementById("DOname" + iddrop);
-    DOamount = document.getElementById("DOamount" + iddrop);
-    DOcurcy = document.getElementById("DOcurcy" + iddrop);
-    DOcomt = document.getElementById("DOcomt" + iddrop);
-    dropinfo = document.getElementById("dropinfo" + iddrop);
-    valueorderform = document.getElementById("valueorderform");
-    valueorderform.innerHTML = dropinfo.innerHTML;
-    data['OrderId'].value = iddrop;
-    data['mtcn'].value = DOmtcn.innerHTML;
-    data['country'].value = DOcountry.innerHTML;
-    data['name'].value = DOname.innerHTML;
-    data['amount'].value = DOamount.innerHTML;
-    data['currency'].value = DOcurcy.innerHTML;
-    data['comment'].value = DOcomt.innerHTML;
-    GlobalAction = 'ClientEdit';
-}
+
+
+
+
 function ClientCansel(iddrop)
 {
     GlobalAction = 'ClientEdit';
-    data = document.forms['order'];
-    data['OrderId'].value = iddrop;
+    
+    modalform = document.forms['modalform'];
+    modalform['OrderId'].value = iddrop;
     OKclick('OrderDelete');
-}
-function Hide(btn)
-{
-    Hidenn = document.getElementById("Hidenn");
-    Hidenn.style.display = "none";
-    data = document.forms['order'];
-    id = data['OrderId'].value;
-    if(btn==false)
-    {
-        btn = document.getElementById('ordbtnid' + id);
-        btn.style.display = "inherit";
-    }
-}
-function DroprDelete(id)
-{
-    data = document.forms['order'];
-    data['OrderId'].value = id;
-    GlobalAction = 'DroprDelete';
-    str = 'action=AdminAction' + '&id=' + id + '&AdAction=DroprDelete';
-    SendData(str);
 }
 function ClientChangeCategory(cat)
 {
@@ -130,86 +273,83 @@ function ClientChangeCategory(cat)
     str = 'action=ClientAction' + '&ClAction=ClientChangeCategory&cat=' + cat;
     SendData(str);
 }
-function AdminEditUser(id)
-{
-    GlobalAction = 'AdminEditUser';
-    data = document.forms['editusers'];
-    str = 'action=AdminAction&AdAction=AdminEditUser&id=' + id + 
-    '&nickname=' + data["nickname" + id].value + 
-    '&password=' + data["password" + id].value +
-    '&group=' + data["group" + id].value +
-    '&delete=' + data["delete" + id].checked;
-    SendData(str);
-}
-function DroprEdit(id)
-{
-    data = document.forms['order'];
-    data.style.display = "inherit";
-    Hidenn = document.getElementById("Hidenn");
-    Hidenn.style.display = "table";
-    tdname = document.getElementById("tdname" + id)
-    tdcountry = document.getElementById("tdcountry" + id)
-    tdcity = document.getElementById("tdcity" + id)
-    tdcat = document.getElementById("category" + id)
-    data['name'].value = tdname.innerHTML;
-    data['country'].value = tdcountry.innerHTML;
-    data['city'].value = tdcity.innerHTML;
-    data['cat'].value = tdcat.value;
-    data['OrderId'].value = id;
-    GlobalAction = 'DropEdit';
-}
-function DroprEditOKclick(action)
-{
-    data = document.forms['order'];
-    data['category'].value = data['cat'].value;
-    var mylist = ['mtcn', 'country', 'name', 'amount', 'comment'];
-    data = document.forms['order'];
-    id = data['OrderId'].value;
-    str = 'action=AdminAction' + '&id=' + id + '&AdAction=' + action + '&';
-    for(i=0; i<data.length; i++)
-    {
-        str += data[i].name + "=" + data[i].value;
-        if(i < data.length-1)
-            str += "&";
-        if(mylist.indexOf(data[i].name)!=-1)
-            data[i].value = '';
-    }
-    Hide(true);
-    SendData(str);
-}
-
+////////////////////////////////////////////////////////////////////////////////////////////////////
 function Order(id)
 {
+    ModalOpen();
+    
     btn = document.getElementById('ordbtnid' + id);
     btn.style.display = "none";
+    
     tdname = document.getElementById('tdname' + id);
     tdcountry = document.getElementById('tdcountry' + id);
     tdcity = document.getElementById('tdcity' + id);
-    val = document.getElementById('valueorderform');
-    val.innerHTML = tdname.innerHTML + ', ' + tdcountry.innerHTML + ', ' + tdcity.innerHTML;
-    data = document.forms['order'];
-    data['OrderId'].value = id;
-    data.style.display = "inherit";
-    Hidenn = document.getElementById("Hidenn");
-    Hidenn.style.display = "table";
+    Head = document.getElementsByClassName('modal-title');
+    Head = Head[0];
+    Head.innerHTML = tdname.innerHTML + ', ' + tdcountry.innerHTML + ', ' + tdcity.innerHTML;
+    
+    modalform = document.forms['modalform'];
+    modalform['OrderId'].value = id;
+    modalform['group'].value = document.getElementById('group' + id).innerHTML;
+    
 }
+function ClientEdit(iddrop)
+{
+    ModalOpen();
+    
+    DOmtcn = document.getElementById("DOmtcn" + iddrop);
+    
+    DOcountry = document.getElementById("DOcountry" + iddrop);
+    
+    DOname = document.getElementById("DOname" + iddrop);
+    
+    DOamount = document.getElementById("DOamount" + iddrop);
+    
+    DOcurcy = document.getElementById("DOcurcy" + iddrop);
+    
+    DOcomt = document.getElementById("DOcomt" + iddrop);
+    
+    dropinfo = document.getElementById("dropinfo" + iddrop);
+    
+    valueorderform = document.getElementById("valueorderform");
+    
+    
+    Head = document.getElementsByClassName('modal-title');
+    Head = Head[0];
+    Head.innerHTML = dropinfo.innerHTML;
+    
+    modalform = document.forms['modalform'];
+    
+    modalform['OrderId'].value = iddrop;
+    modalform['mtcn'].value = DOmtcn.innerHTML;
+    modalform['country'].value = DOcountry.innerHTML;
+    modalform['name'].value = DOname.innerHTML;
+    modalform['amount'].value = DOamount.innerHTML;
+    modalform['currency'].value = DOcurcy.innerHTML;
+    modalform['comment'].value = DOcomt.innerHTML;
+    GlobalAction = 'ClientEdit';
+}
+
 function OKclick(action)
 {
     var mylist = ['mtcn', 'country', 'name', 'amount', 'comment'];
-    data = document.forms['order'];
-    id = data['OrderId'].value;
+    
+    modalform = document.forms['modalform'];
+    id = modalform['OrderId'].value;
     str = 'action=ClientAction' + '&id=' + id + '&ClAction=' + action + '&';
-    for(i=0; i<data.length; i++)
+    for(i=0; i<modalform.length; i++)
     {
-        str += data[i].name + "=" + data[i].value;
-        if(i < data.length-1)
+        str += modalform[i].name + "=" + modalform[i].value;
+        if(i < modalform.length-1)
             str += "&";
-        if(mylist.indexOf(data[i].name)!=-1)
-            data[i].value = '';
+        if(mylist.indexOf(modalform[i].name)!=-1)
+            modalform[i].value = '';
     }
-    Hide(true);
+    ModalClose();
     SendData(str);
 }
+
+
 function OpOk(id)
 {
     GlobalAction = 'OpActionclickOk';
@@ -245,7 +385,10 @@ function GetRequest()
                     GlobalAction == 'DroprDelete' || GlobalAction == 'AdminEditUser' ||
                     GlobalAction == 'ClientChangeCategory' || GlobalAction == 'AdminLookTicket' || 
                     GlobalAction == 'ClientCloseNews' || GlobalAction == 'OpActionclickOk' ||
-                    GlobalAction == 'OpActionclickOk' || GlobalAction == 'OpActionclickCans')
+                    GlobalAction == 'OpActionclickOk' || GlobalAction == 'OpActionclickCans' ||
+                    GlobalAction == 'AdminCreateUser' || 
+                    GlobalAction == 'AdminCreateDrop'
+                    )
                 {
                     if(str.length > 0)
                     {

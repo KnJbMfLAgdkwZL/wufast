@@ -1,5 +1,8 @@
         <div class="Content">
             <hr/>
+            
+        <div class="droporderoeration">
+        
             <?php
                 $str = "";
                 if(isset($drops) && !empty($drops) && count($drops)>0)
@@ -31,8 +34,8 @@
                             case 0:
                                 $stat = 'Ожидание';
                                 $clordstat = 'obrab';
-                                $dis = "<input class='btncliented' type='button' value='Изменить' onclick='ClientEdit({$val['DOid']})'/>";
-                                $dis .= " <input class='btnclientcans' type='button' value='Отменить' onclick='ClientCansel({$val['DOid']})'/>";
+                                $dis = "<br/><input class='btn btn-primary' type='button' value='Изменить' onclick='ClientEdit({$val['DOid']})'/>";
+                                $dis .= " <input class='btn btn-danger' type='button' value='Отменить' onclick='ClientCansel({$val['DOid']})'/>";
                                 if(empty($val['DOmtcn']) || empty($val['DOcountry']) || empty($val['DOname']) || 
                                 empty($val['DOamount']) || empty($val['DOcurcy']) || empty($val['DOcomt']))
                                 {
@@ -51,26 +54,26 @@
                                 $dis = '<br/>';
                                 break;
                         }
-                        $str .= "<div><div class='orderclientmyacc $clordstat'>
-                            <samp>$stat</samp>
+                        $str .= "<div><div class='OperatorDrops orderclientmyacc $clordstat'>
+                            <h4>$stat</h4>
                             <div id='dropinfo{$val['DOid']}'>
-                                <samp id='Dname{$val['DOid']}'>{$val['Dname']}</samp>
-                                <samp id='Dcountry{$val['DOid']}'>{$val['Dcountry']}</samp>
-                                <samp id='Dcity{$val['DOid']}'>{$val['Dcity']}</samp>
-                                <samp>$cat</samp>
+                                <span class='dropclientname' id='Dname{$val['DOid']}'>{$val['Dname']}</span>
+                                <span id='Dcountry{$val['DOid']}'>{$val['Dcountry']}</span>
+                                <span id='Dcity{$val['DOid']}'>{$val['Dcity']}</span>
+                                <span>$cat</span>
                             </div>";
                         $str .= "<br/>
                             <div>
-                                <samp id='DOmtcn{$val['DOid']}'>{$val['DOmtcn']}</samp>
-                                <samp id='DOcountry{$val['DOid']}'>{$val['DOcountry']}</samp>
-                                <samp id='DOname{$val['DOid']}'>{$val['DOname']}</samp>
+                                <span class='mtcn' id='DOmtcn{$val['DOid']}'>{$val['DOmtcn']}</span>
+                                <span id='DOcountry{$val['DOid']}'>{$val['DOcountry']}</span>
+                                <span id='DOname{$val['DOid']}'>{$val['DOname']}</span>
                                 <br/>
-                                <samp id='DOamount{$val['DOid']}'>{$val['DOamount']}</samp>
-                                <samp id='DOcurcy{$val['DOid']}'>{$val['DOcurcy']}</samp>
+                                <span class='amountclient' id='DOamount{$val['DOid']}'>{$val['DOamount']}</span>
+                                <span id='DOcurcy{$val['DOid']}'>{$val['DOcurcy']}</span>
                                 <br/>
-                                <samp id='DOcomt{$val['DOid']}'>{$val['DOcomt']}</samp>
-                            </div>$dis</div>
-                        </div>";
+                                <span id='DOcomt{$val['DOid']}'>{$val['DOcomt']}</span>
+                                </div>$dis</div>
+                            </div>";
                     }
                 }
                 else
@@ -79,36 +82,28 @@
                 }
                 print $str;
             ?>
-            <hr/>
-            <div id="Hidenn">
-                <div id="hcon">
-        			<div id="Book">
-                        <form id="orderform" name="order" action="javascript:void(null)" method="post">
-                            <input type="hidden" name="action" value="ClientAction"/>
-                            <input type="hidden" name="OrderId" value="-1"/>
-                            <div class="do">
-                                <div id="valueorderform"></div>
-                                <br/>
-                                <input type="text" name="mtcn" placeholder="MTCN" class="fieldsorder" value="" />
-                                <input type="text" name="country" placeholder="Страна" class="fieldsorder" value="" />
-                                <br/>
-                                <input type="text" name="name" placeholder="Имя" class="fieldsorder" value="" />
-                                <input type="text" name="amount" placeholder="Сумма" class="fieldsorder" value="" />
-                                <br/>
-                                <select class="fieldsorder selectfield" name="currency">
-                                    <option value="USD">USD</option>
-                                    <option value="EUR">EUR</option>
-                                    <option value="FS">Sterling funts</option>
-                                </select>
-                                <input type="text" name="comment" placeholder="Коментарии" value="" class="fieldsorder" />
-                                <br/>
-                                <div id="butoonsoncns">
-                                    <input type="button" value="Подтвердить" onclick="OKclick('OrderEdit')" />
-                                    <input type="button" value="Отменить" class="canse" onclick="Hide(false)"/>
-                                </div>
-                            </div>
-                        </form>
-        			</div>
-        		</div>
-            </div>       
+            <hr/>  
         </div>
+    </div>
+        
+<div class="modal leftmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button onclick="ModalClose()" type="button" class="close">×</button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+            <?php
+                require_once('ClientEdit.php');
+            ?>
+            </div>
+            
+            <div class="modal-footer">
+                <button onclick="ModalClose()" type="button" class="btn btn-default">Отмена</button>
+                <button onclick="OKclick('OrderEdit')" type="button" class="btn btn-primary SaveBtn">Подтвердить</button>
+            </div>
+        </div>
+    </div>
+</div>
+        

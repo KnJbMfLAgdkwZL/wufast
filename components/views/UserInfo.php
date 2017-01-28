@@ -38,28 +38,28 @@
                                 $dis = '<br/>';
                                 break;
                         }
-                        $str .= "<div><div class='orderclientmyacc $clordstat'>
-                            <samp>$stat</samp>
+                        $str .= "<div><div class='OperatorDrops orderclientmyacc $clordstat'>
+                            <h4>$stat</h4>
                             <div>
-                                <samp>{$val['Dcdate']}</samp><br/>
-                                <samp>{$val['Dname']}</samp>
-                                <samp>{$val['Dcountry']}</samp>
-                                <samp>{$val['Dcity']}</samp>
-                                <samp>$cat</samp>
+                                <span class='cdate'>{$val['Dcdate']}</span><br/>
+                                <span class='mtcn'>{$val['Dname']}</span>
+                                <span class='country'>{$val['Dcountry']}</span>
+                                <span>{$val['Dcity']}</span>
+                                <span>$cat</span>
                                 
                             </div>";
                         $str .= "<br/>
                             <div>
-                                <samp>{$val['DOmtcn']}</samp>
-                                <samp>{$val['DOcountry']}</samp>
-                                <samp>{$val['DOname']}</samp>
+                                <span>{$val['DOmtcn']}</span>
+                                <span>{$val['DOcountry']}</span>
+                                <span>{$val['DOname']}</span>
                                 <br/>
-                                <samp>{$val['DOamount']}</samp>
-                                <samp>{$val['DOcurrency']}</samp>
+                                <span class='amountclient'>{$val['DOamount']}</span>
+                                <span>{$val['DOcurrency']}</span>
                                 <br/>
-                                <samp>{$val['DOcomment']}</samp>
+                                <span>{$val['DOcomment']}</span>
                                 <br/>
-                                <samp>{$val['DOorder_creation']}</samp>
+                                <span class='cdate'>{$val['DOorder_creation']}</span>
                             </div>$dis</div>
                         </div>";
                     }

@@ -26,19 +26,19 @@
                             break;
                     }
                     $str .=
-                    "<div><div class='orderclientmyacc $clordstat'>
-                        <samp>$stat</samp>
+                    "<div><div class='OperatorDrops orderclientmyacc $clordstat'>
+                        <h4>$stat</h4>
                         <div>
-                            <samp>{$val['mtcn']}</samp>
-                            <samp>{$val['country']}</samp>
-                            <samp>{$val['name']}</samp>
+                            <span class='mtcn'>{$val['mtcn']}</span>
+                            <span class='country'>{$val['country']}</span>
+                            <span class='name'>{$val['name']}</span>
                             <br/>
-                            <samp>{$val['amount']}</samp>
-                            <samp>{$val['currency']}</samp>
+                            <span class='amountclient'>{$val['amount']}</span>
+                            <span class='currency'>{$val['currency']}</span>
                             <br/>
-                            <samp>{$val['comment']}</samp>
+                            <span class='comment'>{$val['comment']}</span>
                             <br/>
-                            <samp>{$val['order_creation']}</samp>
+                            <span class='cdate'>{$val['order_creation']}</span>
                             <div>
                                 <a href='/?action=UserInfo&id={$val['ordered_by']}'>user info</a>
                             </div>

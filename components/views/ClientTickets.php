@@ -4,9 +4,9 @@
                 $str = '';
                 foreach($messages as $key=>$val)
                 {
-                    $class = 'alert alert-dismissable alert-success';
+                    $class = 'alert alert-dismissable alert-success';//adminmessage
                     if($val['fromid'] != 0)
-                        $class = 'alert alert-dismissable alert-info';
+                        $class = 'alert alert-dismissable alert-info';//clientmessage
                     $str .= "
                     <div class='messages $class'>
                         <div class='time'>{$val['cdate']}</div>
@@ -25,6 +25,6 @@
                 <input class="btn btn-primary btnsendmess" onclick="<?= $action ?>" type="submit" value="Отправить" />
             </form>
             <script>
-                ClientTimerChatStart(<?= $id ?>);
+                //ClientTimerChatStart(<?= $id ?>);
             </script>
         </div>
