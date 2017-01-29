@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="shortcut icon" type="image/x-icon" href="./components/views/img/favicon.ico" />
+        
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>Panel</title>
         <link href="./components/views/css/styles.css" rel="stylesheet" type="text/css" />

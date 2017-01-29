@@ -96,8 +96,77 @@ class CController
             case 'ResetStatistic':
                 self::ResetStatistic();
             break;
+            case 'ArchiveOperations':
+                self::ArchiveOperations($params);
+            break;
             
         }
+    }
+    static function ArchiveOperations($params)
+    {   
+        if(self::UserCheck() == 1)
+        {
+            $itemsonpage = 15;
+            $status = -1;
+            $con = "WHERE drop_orders.drop_id = drops.id AND drops.count > -1";
+            if(isset($params['status']) && $params['status'] >= 0)
+            {
+                $status = $params['status'];
+                $con .= " AND status = $status";
+            }
+            $str = "/?action=ArchiveOperations&status=$status&page=";
+            $count = CDataBase::GetCount('`drop_orders`, `drops`', $con);
+            $pages = self::CreatePages($str, $itemsonpage, $count, $params['page']);
+            if($status != -1)
+                $archive = CDataBase::ArchiveOperations((int)$params['page'], $itemsonpage, $status);
+            else
+                $archive = CDataBase::ArchiveOperationsAll((int)$params['page'], $itemsonpage);
+            $model = array('archive'=>$archive, 'status'=>$status, 'pages'=>$pages);
+            self::Render('ArchiveOperations.php', $model);
+        }
+    }
+    static function CreatePages($str, $limit, $count, $start=0)
+    {
+        $pages = "";
+        $len = round($count/$limit-0.50001);
+        $begin = 0;
+        if($limit < $count)
+        {
+            $begin = $start - 5;
+            if($begin<0)
+                $begin = 0;
+            elseif($start-5>0)
+            {
+                $pages = "
+                <li><a href='{$str}0'>0</a>...</li>";
+            }
+                
+            for($i = $begin; $i<=$len; $i++)
+            {
+                if($i<$begin + 9)
+                {
+                    if($start==$i)
+                        $pages.="
+                        <li class='active'>
+                            <a href='$str$i'>$i</a>
+                        </li>";
+                    else
+                        $pages.="
+                        <li>
+                            <a href='$str$i'>$i</a>
+                        </li>";
+                }
+                else
+                    break;
+            }
+        }
+        $pages = substr($pages, 0, strlen($pages)-2);
+        if($len>$begin + 9)
+        {
+            $i = $len;
+            $pages.= "<li>...<a href='$str$i'>$i</a></li>";
+        }
+        return $pages;
     }
     static function Main()
     {

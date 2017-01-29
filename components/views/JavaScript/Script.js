@@ -156,8 +156,19 @@ function AdminCreateDrop()
     'action=AdminCreateDrop' + 
     '&name=' + modalform["name"].value + 
     '&country=' + modalform["country"].value +
-    '&city=' + modalform["city"].value + 
-    '&cat=' + modalform["cat"].value;
+    '&city=' + modalform["city"].value;
+    
+    cat = 0;
+    for(i=0; i<modalform.length; i++)
+    {
+        if(modalform[i].name == 'cat' && modalform[i].checked == true)
+        {
+            cat = modalform[i].value;
+            break;
+        }
+    }
+    str += '&cat=' + cat;
+    
     SendData(str);
     GlobalAction = 'AdminCreateDrop';
     ModalClose();

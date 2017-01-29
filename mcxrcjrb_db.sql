@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Окт 21 2014 г., 02:06
+-- Время создания: Окт 21 2014 г., 06:03
 -- Версия сервера: 5.5.37-cll
 -- Версия PHP: 5.4.23
 
@@ -19,6 +19,63 @@ SET time_zone = "+00:00";
 --
 -- База данных: `mcxrcjrb_db`
 --
+
+DELIMITER $$
+--
+-- Процедуры
+--
+CREATE DEFINER=`mcxrcjrb`@`localhost` PROCEDURE `ArchiveOperations`(IN `beg` INT, IN `lim` INT, IN `stat` INT)
+    NO SQL
+SELECT
+            drop_orders.ordered_by as ordered_by,
+            drop_orders.mtcn as DOmtcn,
+            drop_orders.`status` as DOstatus,
+            drop_orders.country as DOcountry,
+            drop_orders.`name` as DOname,
+            drop_orders.amount as DOamount,
+            drop_orders.currency as DOcurrency,
+            drop_orders.`comment` as DOcomment,
+            drop_orders.order_creation as DOorder_creation,
+            drops.cdate as Dcdate,
+            drops.`name` as Dname,
+            drops.count as Dcount,
+            drops.country as Dcountry,
+            drops.city as Dcity,
+            drops.cat as Dcat,
+            drops.count as Dcount
+        FROM `drop_orders`, `drops`
+        WHERE drop_orders.drop_id = drops.id
+        AND drops.count > -1
+        AND drop_orders.status = stat
+        ORDER BY Dcdate DESC
+        LIMIT beg, lim$$
+
+CREATE DEFINER=`mcxrcjrb`@`localhost` PROCEDURE `ArchiveOperationsAll`(IN `beg` INT, IN `lim` INT)
+    NO SQL
+SELECT
+            drop_orders.ordered_by as ordered_by,
+            drop_orders.mtcn as DOmtcn,
+            drop_orders.`status` as DOstatus,
+            drop_orders.country as DOcountry,
+            drop_orders.`name` as DOname,
+            drop_orders.amount as DOamount,
+            drop_orders.currency as DOcurrency,
+            drop_orders.`comment` as DOcomment,
+            drop_orders.order_creation as DOorder_creation,
+            drops.cdate as Dcdate,
+            drops.`name` as Dname,
+            drops.count as Dcount,
+            drops.country as Dcountry,
+            drops.city as Dcity,
+            drops.cat as Dcat,
+            drops.count as Dcount
+        FROM `drop_orders`, `drops`
+        WHERE drop_orders.drop_id = drops.id
+        AND drops.count > -1
+        ORDER BY Dcdate DESC
+        LIMIT beg, lim$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -36,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `drops` (
   `cat` int(11) NOT NULL,
   `count` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=74 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=81 ;
 
 --
 -- Дамп данных таблицы `drops`
@@ -76,11 +133,11 @@ INSERT INTO `drops` (`id`, `cdate`, `frozen_till`, `name`, `country`, `city`, `c
 (31, '2014-10-19 09:56:28', 0, 'Иван Иванов', 'Russia', 'Moscow', 0, -1),
 (32, '2014-10-19 10:06:45', 0, 'Иванов Иван', 'Russia', 'Moscow', 2, -1),
 (33, '2014-10-19 10:13:24', 0, 'Новейший дроп', 'Russia', 'Moscow', 0, 0),
-(34, '2014-10-19 12:22:43', 0, 'Мария Васильевна', 'Russia', 'Moscow', 0, 1),
+(34, '2014-10-19 12:22:43', 0, 'Мария Васильевна', 'Russia', 'Moscow', 0, 0),
 (35, '2014-10-19 12:22:47', 0, 'Дроп 25', 'Russia', 'Moscow', 1, -1),
 (36, '2014-10-19 12:22:50', 0, 'Илларион Илларионович', 'Russia', 'Moscow', 2, -1),
-(37, '2014-10-19 18:06:23', 0, 'Иван Петров', 'Russia', 'Moscow', 1, 999999),
-(38, '2014-10-19 18:06:32', 0, 'Петр Иванов', 'Russia', 'Moscow', 1, 999999),
+(37, '2014-10-19 18:06:23', 0, 'Иван Петров', 'Russia', 'Moscow', 1, 999990),
+(38, '2014-10-19 18:06:32', 0, 'Петр Иванов', 'Russia', 'Moscow', 2, 999990),
 (39, '2014-10-19 18:06:41', 0, 'Мария Ивановна', 'Russia', 'Moscow', 0, -1),
 (40, '2014-10-19 18:08:34', 0, 'Люкс дроп', 'Russia', 'Moscow', 0, -1),
 (41, '2014-10-19 19:12:36', 0, 'Abc', 'Russia', 'Moscow', 1, -1),
@@ -98,9 +155,9 @@ INSERT INTO `drops` (`id`, `cdate`, `frozen_till`, `name`, `country`, `city`, `c
 (54, '2014-10-19 20:32:40', 0, 'Илларион Пантелупиков', 'Russia', 'Moscow', 1, -1),
 (53, '2014-10-19 20:23:09', 0, '', 'Russia', 'Moscow', 2, -1),
 (55, '2014-10-20 03:38:24', 0, 'Тестовый дроп', 'Russia', 'Moscow', 0, 0),
-(56, '2014-10-20 03:38:42', 0, 'Тестовый дроп 2', 'Russia', 'Moscow', 1, 999999),
+(56, '2014-10-20 03:38:42', 0, 'Тестовый дроп 2', 'Russia', 'Moscow', 1, -1),
 (57, '2014-10-20 03:38:48', 0, 'Тестовый дроп 3', 'Russia', 'Moscow', 2, -1),
-(58, '2014-10-20 03:58:27', 0, 'Тестовый дроп 3', 'Russia', 'Moscow', 2, 999998),
+(58, '2014-10-20 03:58:27', 0, 'Тестовый дроп 3', 'Russia', 'Moscow', 2, -1),
 (59, '2014-10-20 04:04:48', 0, 'Тестовый дроп 4', 'Russia', 'Moscow', 1, -1),
 (60, '2014-10-20 04:04:59', 0, 'Тестовый дроп 5', 'Russia', 'Moscow', 2, -1),
 (61, '2014-10-20 17:45:15', 0, '', 'Russia', 'Moscow', 0, -1),
@@ -109,13 +166,20 @@ INSERT INTO `drops` (`id`, `cdate`, `frozen_till`, `name`, `country`, `city`, `c
 (64, '2014-10-20 18:41:08', 0, 'пропро', 'Russia', 'Moscow', 2, -1),
 (65, '2014-10-20 18:46:57', 0, '567па', 'Russia', 'Moscow', 2, -1),
 (66, '2014-10-20 19:23:10', 0, '324', 'Russia', 'Moscow', 0, 0),
-(67, '2014-10-20 19:23:31', 0, '123123', 'Russia', 'Moscow', 1, 999999),
-(68, '2014-10-20 19:23:58', 0, '4852', 'Russia', 'Moscow', 2, 999998),
-(69, '2014-10-20 19:24:10', 0, 'мропро', 'Russia', 'Moscow', 1, 999996),
+(67, '2014-10-20 19:23:31', 0, '123123', 'Russia', 'Moscow', 1, -1),
+(68, '2014-10-20 19:23:58', 0, '4852', 'Russia', 'Moscow', 2, -1),
+(69, '2014-10-20 19:24:10', 0, 'мропро', 'Russia', 'Moscow', 1, -1),
 (70, '2014-10-20 19:24:14', 0, '123123123', 'Russia', 'Moscow', 0, 0),
 (71, '2014-10-20 19:24:18', 0, 'пропро', 'Russia', 'Moscow', 0, 0),
 (72, '2014-10-20 19:24:21', 0, '4134124', 'Russia', 'Moscow', 0, 0),
-(73, '2014-10-21 05:47:51', 0, 'Длиное название дропаааааааааааа', 'Russiaааааааааа ghhhhhhhhhhhhhhhhhhhhhhh', 'Moscowwwwwwwwww rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', 1, -1);
+(73, '2014-10-21 05:47:51', 0, 'Длиное название дропаааааааааааа', 'Russiaааааааааа ghhhhhhhhhhhhhhhhhhhhhhh', 'Moscowwwwwwwwww rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', 1, -1),
+(74, '2014-10-21 07:47:33', 0, '123123', 'Russia', 'Moscow', 1, -1),
+(75, '2014-10-21 07:56:16', 0, '123123', 'Russia', 'Moscow', 2, -1),
+(76, '2014-10-21 07:56:45', 0, 'hjkhjk', 'Russia', 'Moscow', 1, -1),
+(77, '2014-10-21 07:58:04', 0, 'ghghj', 'Russia', 'Moscow', 1, -1),
+(78, '2014-10-21 07:58:08', 0, 'ghjghj', 'Russia', 'Moscow', 2, -1),
+(79, '2014-10-21 07:59:41', 0, 'zxczxc', 'Russia', 'Moscow', 0, -1),
+(80, '2014-10-21 09:21:38', 0, 'fffffffffffffffffffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff fffff', 'Russiafffffffffffffff ffffffffffffff fffffffffffff ffffffffffff', 'Moscow ffffffffff ffffffffffff fffff', 1, -1);
 
 -- --------------------------------------------------------
 
@@ -136,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `drop_orders` (
   `comment` text NOT NULL,
   `order_creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=68 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=87 ;
 
 --
 -- Дамп данных таблицы `drop_orders`
@@ -194,7 +258,7 @@ INSERT INTO `drop_orders` (`id`, `drop_id`, `status`, `ordered_by`, `mtcn`, `cou
 (60, 72, 2, 16, '66', '55', '', '77', 'EUR', 'fghfgh', '2014-10-20 20:20:46'),
 (61, 72, 1, 16, 'MTCN 12545 hj hjkjhk', 'Украина h jkhjk', 'Виктор Викторовичjhk h', '456hj jhkj', 'USD', 'My@mail.ru', '2014-10-21 06:27:26'),
 (62, 69, 0, 16, 'MTCN', 'Страна', 'Имя', '44', 'EUR', 'test@.mail.ru', '2014-10-21 07:03:14'),
-(67, 58, 0, 16, 'yrt', 'tr', 'rtu', '555', 'FS', '', '2014-10-21 07:04:50');
+(67, 58, 0, 16, 'yrt', 'tr', 'rtu', '555', 'FS', 'hjkhjk', '2014-10-21 07:04:50');
 
 -- --------------------------------------------------------
 
@@ -354,11 +418,11 @@ INSERT INTO `sessions` (`session`, `lifetime`, `userid`) VALUES
 ('9d864ff6f650dbaa6cd2ea7c56bf9f48', 1414149299, 16),
 ('b28a1f9e36219fbc7e4071aa9e60d812', 1414318386, 16),
 ('79374baf80e32dff31a47eaa5299eb23', 1414317458, 2),
-('d039ec0bd9151a6fe41a621cc33d07ee', 1414478910, 2),
+('f1bfddbe90d224451600175bf2936881', 1414494154, 2),
 ('2f95eabb55d7f1b01cd95e4bce54cf3e', 1414317263, 23),
 ('73ebec2275c47af887a5b294cf446d96', 1414426657, 2),
 ('3f5988c1e49702846138061c8c76756c', 1414476458, 2),
-('2510991c198c0fa08bcdfa68782d38b5', 1414437862, 2),
+('a6e62deabc360a551190dc96c5e442c8', 1414483071, 2),
 ('3dbc95a75d082c123bb0961604090e6c', 1414356309, 16),
 ('fa2bacb48929edad2a53b87189abc291', 1414349502, 2),
 ('8a04b87cc388875f64e55e0a2ecbb2fb', 1414350700, 2),
@@ -368,7 +432,7 @@ INSERT INTO `sessions` (`session`, `lifetime`, `userid`) VALUES
 ('dc01b054545cf6a0d896bf5c7a4f2f66', 1414356103, 2),
 ('2f112ce54c7665c0afdd305a5b556987', 1414356107, 2),
 ('fa7fc694c2b5c0d3e4408e40dc7263cf', 1414356122, 2),
-('8bcfd6e76f958471aa8baff914f0376b', 1414479769, 16),
+('08ba3181d8db57cd2f4937bc05075ee4', 1414492320, 2),
 ('ca58191cc57c1bdbc0d1b744586e21e7', 1414476464, 2),
 ('e88a86d81a0f80fec60d9cde3971c096', 1414476623, 2);
 
@@ -414,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `statistic` (
 --
 
 INSERT INTO `statistic` (`id`, `AmountForDay`, `AmountForWeek`, `AmountForMonth`, `AmountForAllTime`, `Day`, `Week`, `Month`) VALUES
-(1, 2266, 2266, 2266, 2266, '2014-10-21 07:02:31', '2014-10-19 10:00:09', '2014-10-19 10:00:09');
+(1, 0, 0, 0, 0, '2014-10-21 08:03:29', '2014-10-21 08:03:29', '2014-10-21 08:03:29');
 
 -- --------------------------------------------------------
 
@@ -501,16 +565,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `reg_date`, `nickname`, `password`, `group`) VALUES
 (2, '2014-09-14 14:26:20', 'qwe', '7b0dd919dbcbfd6b0f75089d364b114c', 1),
 (16, '2014-10-16 08:19:24', 'user', '1ed634f69326cb28aa2b0bc5cd398bc3', 3),
-(20, '2014-10-17 09:38:29', 'user2', 'c4ecb333ad9cbfdf8f8f8cba9bd9ddee', 3),
 (10, '2014-10-11 15:56:01', 'aeq', '2cea3f9e8e685c9930bc92db60e3fca6', 2),
-(23, '2014-10-19 09:52:54', 'vass', 'b282feb85b9a67f95bdaa42d02242d6e', 3),
-(24, '2014-10-19 09:55:18', 'vass', 'b282feb85b9a67f95bdaa42d02242d6e', 1),
-(25, '2014-10-19 10:03:57', 'asd', '133faa060041133fa712f00875a88ab0', 2),
-(26, '2014-10-19 10:04:20', 'asd', '133faa060041133fa712f00875a88ab0', 2),
-(27, '2014-10-20 11:34:38', 'admin', '953bc9ce9dbb2faf97a5634947d83c2a', 1),
-(32, '2014-10-20 19:03:50', '123', '9f16ff4ef1821ad17d59efed346fa42b', 2),
-(33, '2014-10-20 19:23:50', '123', '8025a76172291dfb4dc6dc10d4d7522a', 2),
-(34, '2014-10-20 19:24:48', 'qqq', '36806f585642cedfb6941d33f201154d', 2);
+(27, '2014-10-20 11:34:38', 'admin', '953bc9ce9dbb2faf97a5634947d83c2a', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

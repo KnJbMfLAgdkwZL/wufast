@@ -5,6 +5,8 @@
                     print "<script>alert('$alert')</script>";
                 }
             ?>
+            
+        <div class="mid">
             <div class="LeftOption">
                 <form action="" method="post">
                     <input type="hidden" name="action" value="AdminCreateNews"/>
@@ -14,7 +16,7 @@
                         <textarea rows='5' cols='40' name="newstext" maxlength="1000"></textarea>                        
                     </div>  
                     <br />
-                    <button>Создать уведомление</button>
+                    <button class="btn btn-primary btn-sm">Создать уведомление</button>
                 </form>
                 <br />
             </div>
@@ -28,7 +30,7 @@
                         <input type='text' name="PhoneNumber" placeholder="Телефон" value="<?= $PhoneNumber ?>"/>                      
                     </div>
                     <br />
-                    <button>Сменить номер</button>
+                    <button class="btn btn-primary btn-sm">Сменить номер</button>
                 </form>
             </div>
             
@@ -41,9 +43,11 @@
                 <form action="" method="post">
                     <input type="hidden" name="action" value="ResetStatistic"/>
                     <br />
-                    <button>Сбросить статистику</button>
+                    <button class="btn btn-primary btn-sm">Сбросить статистику</button>
                 </form>
             </div>
+        </div>
+            
 
             
         </div>

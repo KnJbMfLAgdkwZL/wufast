@@ -32,8 +32,8 @@
             "
             <div id='{$val['id']}' class='tabletr dropmanager'>
                 <span class='midtext clientdname textsizedrop' id='tdname{$val['id']}'>{$val['name']}</span>
-                <span class='midtext clientdcountry textsizedrop' id='tdcountry{$val['id']}'>{$val['country']}</span>&nbsp;&nbsp;
-                <span class='midtext clientdcity textsizedrop' id='tdcity{$val['id']}'>{$val['city']}</span>
+                <span class='midtext clientdcountry' id='tdcountry{$val['id']}'>{$val['country']}</span>&nbsp;&nbsp;
+                <span class='midtext clientdcity' id='tdcity{$val['id']}'>{$val['city']}</span>
                 <span class='midtext clientdcat $castc' id='cat{$val['id']}'>$cat</span>&nbsp;&nbsp;
                 <input type='hidden' id='category{$val['id']}' value='{$val['cat']}' />&nbsp;&nbsp;
                 <span class='midtext botnclientorder dropmanager'>

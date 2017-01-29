@@ -1,4 +1,10 @@
         <div class="Content">
+        <?php
+            if(self::UserCheck() == 1)
+                print '<a href="/?action=ArchiveOperations&status=-1&page=0" class="btn btn-primary">Архив операций</a>';
+        ?>
+            
+            <br />
             <form name="oper" action="javascript:void(null)" method="post" class="droporderoeration">
                 <input type="hidden" name="action" value="Operator"/>
             <?php

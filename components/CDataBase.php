@@ -26,6 +26,29 @@ class CDataBase
         $items = $stm->fetchAll(PDO::FETCH_ASSOC);
         return $items;
     }
+    static function GetCount($table, $reqs='')
+    {
+        $sql = "SELECT COUNT(*) as Count FROM $table $reqs";
+        $result = self::Execute($sql);
+        $result = $result[0]['Count'];
+        return $result;
+    }
+    static function ArchiveOperations($page, $lim, $status)
+    {
+        $beg = $page * $lim;
+        $sql = 'CALL ArchiveOperations(:beg, :lim, :stat)';
+        $params = array(':beg'=>$beg, ':lim'=>$lim, ':stat'=>$status);
+        $result = self::Execute($sql, $params);
+        return $result;
+    }
+    static function ArchiveOperationsAll($page, $lim)
+    {
+        $beg = $page * $lim;
+        $sql = 'CALL ArchiveOperationsAll(:beg, :lim)';
+        $params = array(':beg'=>$beg, ':lim'=>$lim);
+        $result = self::Execute($sql, $params);
+        return $result;
+    }
     static function CLienGetOrderedDrops($clientid)
     {
         $sql = 'SELECT drop_orders.id as DOid, drop_orders.drop_id as DOdropid, drop_orders.`status` as DOstat,
