@@ -99,9 +99,20 @@ class CController
             case 'ArchiveOperations':
                 self::ArchiveOperations($params);
             break;
+			case 'ClearDropOrder':
+				self::ClearDropOrder();
+			break;
             
         }
     }
+	static function ClearDropOrder()
+	{
+		if(self::UserCheck() == 1)
+		{
+			CDataBase::ClearDropOrder();
+			self::AdminPanel('Заявки очищены');
+		}
+	}
     static function ArchiveOperations($params)
     {   
         if(self::UserCheck() == 1)

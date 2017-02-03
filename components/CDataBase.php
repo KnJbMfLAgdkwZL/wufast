@@ -33,6 +33,11 @@ class CDataBase
         $result = $result[0]['Count'];
         return $result;
     }
+	static function ClearDropOrder()
+	{
+		$sql = 'TRUNCATE TABLE `drop_orders`';
+		self::Execute($sql);
+	}
     static function ArchiveOperations($page, $lim, $status)
     {
         $beg = $page * $lim;

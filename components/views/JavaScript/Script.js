@@ -197,7 +197,6 @@ function AdminEditDrop(id)
     ModalClose();
 }
 
-
 function DroprDelete(id)
 {
     GlobalAction = 'DroprDelete';
@@ -206,6 +205,15 @@ function DroprDelete(id)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 GlobalAction = ''; GlobalID = 0;
+function Confirm(str)
+{
+    answer = confirm(str);
+    if(answer)
+    {
+        return true;
+    }
+    return false;
+}
 function Hide(btn)
 {    
     ModalClose();
