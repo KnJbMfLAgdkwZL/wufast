@@ -100,17 +100,21 @@ class CController
                 self::ArchiveOperations($params);
             break;
 			case 'ClearDropOrder':
-				self::ClearDropOrder();
+				self::ClearDropOrder($params);
 			break;
             
         }
     }
-	static function ClearDropOrder()
+	static function ClearDropOrder($params)
 	{
 		if(self::UserCheck() == 1)
 		{
-			CDataBase::ClearDropOrder();
-			self::AdminPanel('Заявки очищены');
+			if(isset($params['iconfirm']) && !empty($params['iconfirm']))
+			{
+				CDataBase::ClearDropOrder();
+				self::AdminPanel('Заявки очищены');
+			}
+			self::AdminPanel();
 		}
 	}
     static function ArchiveOperations($params)

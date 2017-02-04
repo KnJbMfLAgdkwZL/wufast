@@ -48,17 +48,50 @@
         </div>
 
 		<div class="LeftOption">
-			<form method="post" action=''>
-                <input type="hidden" name="action" value="ClearDropOrder" />
-                <br />
-                <button
-					onclick='return Confirm("Уверены, что хотите выполнить это действие?")'
-					class="btn btn-danger btn-sm">
-					Очистить заявки
-				</button>
-				
-            </form>
+			<button onclick='ModalOpen()' class="btn btn-danger btn-sm">
+				Очистить заявки
+			</button>
 		</div>
-
     </div>
 </div>
+
+<div class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button onclick="ModalClose()" type="button" class="close">×</button>
+                <h4 class="modal-title">
+					Вы уверены что хотите удалить все заявки? Внимание! Необработанные заявки будут тоже удалены!
+				</h4>
+            </div>
+
+			<form class='form-horizontal' method='post' name='modalform' action=''>
+				<fieldset>
+					<input type="hidden" name="action" value="ClearDropOrder" />
+					<div class="modal-body">
+						<div class='form-group'>
+							<div class="col-lg-10">
+								<div class="checkbox">
+									<label>
+										<input onclick="ConfirmClick()" type="checkbox" name="iconfirm"/>
+										Да я хочу удалить все заявки
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+	            <div class="modal-footer">
+					<button onclick="ModalClose()" type="button" class="btn btn-default">Отмена</button>
+					<input name="SaveBtn" type="submit" value="Удалить" id="SaveBtn"
+						class="btn btn-danger SaveBtn disabled"/>
+				</div>
+				</fieldset>
+			</form>
+
+        </div>
+    </div>
+</div>
+
+
+      
+

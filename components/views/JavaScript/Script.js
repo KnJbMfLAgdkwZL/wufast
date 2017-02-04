@@ -205,14 +205,20 @@ function DroprDelete(id)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 GlobalAction = ''; GlobalID = 0;
-function Confirm(str)
+function ConfirmClick()
 {
-    answer = confirm(str);
-    if(answer)
+    modalform = document.forms['modalform'];
+    if(modalform['iconfirm'].checked == true)
     {
-        return true;
+        curclass = modalform['SaveBtn'].className;
+        modalform['SaveBtn'].className = curclass.replace(' disabled', '');
+        modalform['SaveBtn'].classList.remove(' disabled');
     }
-    return false;
+    else if (modalform['iconfirm'].checked == false)
+    {
+        modalform['SaveBtn'].className += ' disabled';
+        modalform['SaveBtn'].classList.add(' disabled');
+    }
 }
 function Hide(btn)
 {    
