@@ -183,39 +183,37 @@ class CController
         }
         return $pages;
     }
+	static function Operator()
+	{
+		$do = CDataBase::GetDropOrders();
+		foreach($do as $key=>$val)
+		{
+			$drop = CDataBase::GetDropsById($val['drop_id']);
+			if(isset($drop) && !empty($drop))
+			{
+				$do[$key]['di'] = $drop;
+			}
+			else
+				unset($do[$key]);
+			if(empty($val['mtcn']) || empty($val['country']) || empty($val['name']) ||
+				empty($val['amount']) || empty($val['currency']) || empty($val['comment'])	)
+			{
+				unset($do[$key]);
+			}     
+		}
+		$model = array('do'=>$do);
+		self::Render('Operator.php', $model);
+	}
+
     static function Main()
     {
         switch(self::UserCheck())
         {
             case 1://Admin
-                $do = CDataBase::GetDropOrders();
-                foreach($do as $key=>$val)
-                {
-                    $drop = CDataBase::GetDropsById($val['drop_id']);
-                    if(isset($drop) && !empty($drop))
-                    {
-                        $do[$key]['di'] = $drop;
-                    }
-                    else
-                        unset($do[$key]);
-                }
-                $model = array('do'=>$do);
-                self::Render('Operator.php', $model);
+				self::Operator();
             break;
             case 2://Operator
-                $do = CDataBase::GetDropOrders();
-                foreach($do as $key=>$val)
-                {
-                    $drop = CDataBase::GetDropsById($val['drop_id']);
-                    if(isset($drop) && !empty($drop))
-                    {
-                        $do[$key]['di'] = $drop;
-                    }
-                    else
-                        unset($do[$key]);
-                }
-                $model = array('do'=>$do);
-                self::Render('Operator.php', $model);
+				self::Operator();
             break;
             case 3://Client
                 $drops = CDataBase::GetAllDrops();
